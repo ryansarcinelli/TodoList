@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="jquery-3.3.1.js"></script>
+    <script src ="script.js" defer></script>
+</head>
+<body>
+    <h1>Lista de Tarefas</h1>
+
+    <!-- Formulário para adicionar tarefas -->
+    <form id="taskForm">
+        <label for="taskName">Nome da Tarefa</label>
+        <input type="text" id="taskName" placeholder="Digite o nome da tarefa" required>
+
+        <label for="taskCost">Custo (R$)</label>
+        <input type="number" id="taskCost" step="0.01" placeholder="Digite o custo" required>
+
+        <label for="taskDeadline">Data Limite</label>
+        <input type="date" id="taskDeadline" required>
+
+        <label for="taskOrder">Ordem de Apresentação</label>
+        <input type="number" id="taskOrder" placeholder="Digite a ordem de apresentação" required>
+
+        <button type="submit">Adicionar Tarefa</button>
+    </form>
+
+    <!-- Tabela para exibir as tarefas -->
+    <table>
+        <thead>
+            <tr>
+                <th>Ordem</th>
+                <th>Nome</th>
+                <th>Custo (R$)</th>
+                <th>Data Limite</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="taskTable">
+            <!-- Os registros serão adicionados dinamicamente aqui -->
+        </tbody>
+    </table>
+</body>
+</html>
