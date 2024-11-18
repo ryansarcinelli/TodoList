@@ -1,52 +1,168 @@
+/* Estilos gerais */
 body {
-    font-family: Arial, sans-serif;
     margin: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
-h1 {
-    text-align: center;
+
+body.dark-mode #botaoNoturno {
+    background-color: #1f1f1f; /* Cor do botão no modo noturno */
 }
-form {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+
+body.dark-mode #botaoNoturno:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Efeito ao passar o mouse no modo noturno */
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
-form label {
-    display: block;
-    margin-bottom: 5px;
+
+/* Estilos para o modo noturno */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode th {
+    background-color: #333333;
+}
+
+body.dark-mode td {
+    border-color: #444444;
+}
+
+
+#taskTable{
+    
+}
+
+/* Estilo para o formulário */
+#addTaskForm {
+    display: flex;
+    flex-direction: column; /* Organiza os campos em coluna */
+    gap: 15px; /* Espaçamento entre os campos */
+    max-width: 400px; /* Limita a largura do formulário */
+    margin: 20px auto; /* Centraliza o formulário na página */
+    padding: 20px; /* Espaço interno */
+    border-radius: 10px; /* Borda arredondada para o formulário */
+    background-color: #f9f9f9; /* Fundo do formulário */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode #addTaskForm {
+    background-color: #1e1e1e; /* Fundo no modo noturno */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Sombra no modo noturno */
+}
+
+/* Estilo para os campos de entrada */
+#addTaskForm input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px; /* Bordas arredondadas */
+    border: 1px solid #ddd; /* Cor da borda */
+    outline: none;
+    transition: all 0.3s ease; /* Transição suave */
+}
+
+#addTaskForm input:focus {
+    border-color: #007bff; /* Cor de borda ao focar */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Sombra ao focar */
+}
+
+body.dark-mode #addTaskForm input {
+    background-color: #333333; /* Fundo no modo noturno */
+    color: #ffffff; /* Texto branco no modo noturno */
+    border-color: #555555; /* Cor da borda no modo noturno */
+}
+
+#addTaskForm input::placeholder {
+    color: #aaa; /* Cor do texto placeholder */
+}
+
+body.dark-mode #addTaskForm input::placeholder {
+    color: #777; /* Placeholder no modo noturno */
+}
+
+/* Estilo para o botão */
+#addTaskForm button {
+    padding: 12px 20px;
+    font-size: 16px;
     font-weight: bold;
-}
-form input, form button {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-form button {
-    background-color: #4CAF50;
-    color: white;
+    color: #ffffff; /* Cor do texto */
+    background-color: #007bff; /* Fundo do botão */
     border: none;
+    border-radius: 20px; /* Deixa o botão arredondado */
     cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
-form button:hover {
-    background-color: #45a049;
+
+#addTaskForm button:hover {
+    background-color: #0056b3; /* Fundo ao passar o mouse */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra ao passar o mouse */
 }
+
+#addTaskForm button:active {
+    background-color: #003d80; /* Fundo ao clicar */
+    transform: scale(0.98); /* Pequeno efeito ao clicar */
+}
+
+body.dark-mode #addTaskForm button {
+    background-color: #0056b3; /* Botão no modo noturno */
+    color: #ffffff; /* Texto no modo noturno */
+}
+
+
+
+
+body.dark-mode button {
+    color: #ffffff;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
+
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
     text-align: left;
 }
+
 th {
     background-color: #f4f4f4;
+    transition: background-color 0.5s ease; /* Transição para cabeçalhos */
 }
-tr:hover {
-    background-color: #f1f1f1;
+
+tr.yellow-bg {
+    background-color: #fff9c4;
 }
+
+button {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição para botões */
+}
+
+#botaoNoturno {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Torna o botão redondo */
+    border: none;
+    background-color: inherit; /* Cor do fundo igual à cor do body */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.5s ease; /* Transição suave */
+}
+
+
+#botaoNoturno:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Efeito ao passar o mouse no modo claro */
+    transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
