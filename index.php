@@ -1,7 +1,11 @@
+<?php
+    include("database.php");
+
+?>
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tarefas</title>
     <button id="botaoNoturno" class="modo-botao">
@@ -11,9 +15,9 @@
     <script type="text/javascript" src="jquery-3.3.1.js"></script>
     <script src ="script.js" defer></script>
 </head>
+
 <body>
     <h1>Lista de Tarefas</h1>
-
     <!-- Formulário para incluir novas tarefas -->
     <form id="addTaskForm">
         <input type="text" id="taskName" placeholder="Nome da Tarefa" required>

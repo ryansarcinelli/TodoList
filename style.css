@@ -136,7 +136,13 @@ th {
 }
 
 tr.yellow-bg {
-    background-color: #fff9c4;
+    background-color: #f8ec80;
+}
+
+
+body.dark-mode tr.yellow-bg {
+    background-color: #f8ec80; /* Amarelo escuro */
+    color: #000000; /* Texto branco */
 }
 
 button {
@@ -165,4 +171,8 @@ button {
     transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
+
+
+
+
 
