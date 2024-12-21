@@ -1,5 +1,6 @@
 <?php
     include("database.php");
+    include("add.php");
 
 ?>
 <!DOCTYPE html>
