@@ -17,12 +17,14 @@ function renderTasks() {
 
         tasks.forEach(task => {
             const row = `
-                <tr class="${task.cost >= 1000 ? 'yellow-bg' : ''}">
+                <tr>
                     <td>${task.name}</td>
                     <td>${parseFloat(task.cost).toFixed(2)}</td>
                     <td>${task.deadline}</td>
                     <td>
                         <button class="btn-edit" data-id="${task.id}">Editar</button>
+                        <button class="btn-order-up" data-id="${task.id}">↑</button>
+                        <button class="btn-order-down" data-id="${task.id}">↓</button>
                         <button class="btn-delete" data-id="${task.id}">Excluir</button>
                     </td>
                 </tr>`;
@@ -31,61 +33,17 @@ function renderTasks() {
     });
 }
 
-function loadTasks() {
-    $.get('get_tasks.php', function (data) {
-        if (data.error) {
-            alert(data.error);
-            return;
-        }
-
-        const taskTable = $('#taskTable');
-        taskTable.empty();
-
-        data.forEach(task => {
-            const row = `
-                <tr>
-                    <td>${task.name}</td>
-                    <td>${parseFloat(task.cost).toFixed(2)}</td>
-                    <td>${task.deadline}</td>
-                    <td>
-                        <button class="btn-edit" onclick="openEditTask(${task.id}, '${task.name}', ${task.cost}, '${task.deadline}')">Editar</button>
-                        <button class="btn-delete" onclick="deleteTask(${task.id})">Excluir</button>
-                    </td>
-                </tr>
-            `;
-            taskTable.append(row);
-        });
-    });
-}
-
-// Chamar função ao carregar a página
-$(document).ready(function () {
-    loadTasks();
-});
-// Adicionar nova tarefa
-$('#addTaskForm').on('submit', function (e) {
-    e.preventDefault();
-    const formData = {
-        name: $('#taskName').val(),
-        cost: parseFloat($('#taskCost').val()),
-        deadline: $('#taskDeadline').val()
-    };
-
-    $.post('add_task.php', formData, function (response) {
-        alert(response);
-        renderTasks();
-    });
-});
-
-// Excluir tarefa
-$(document).on('click', '.btn-delete', function () {
+// Atualizar a ordem de apresentação
+$(document).on('click', '.btn-order-up, .btn-order-down', function () {
     const taskId = $(this).data('id');
-    if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
-        $.post('delete_task.php', { id: taskId }, function (response) {
-            alert(response);
-            renderTasks();
-        });
-    }
+    const action = $(this).hasClass('btn-order-up') ? 'up' : 'down';
+
+    $.post('update_task_order.php', { id: taskId, action: action }, function (response) {
+        alert(response);
+        renderTasks(); // Atualizar tabela após a ordem ser alterada
+    }).fail(function () {
+        alert('Erro ao atualizar a ordem.');
+    });
 });
 
 // Editar tarefa
@@ -100,11 +58,72 @@ $(document).on('click', '.btn-edit', function () {
         return;
     }
 
-    $.post('edit_task.php', { id: taskId, name: newName, cost: newCost, deadline: newDeadline }, function (response) {
+    $.post('edit_task.php', {
+        id: taskId,
+        name: newName,
+        cost: newCost,
+        deadline: newDeadline
+    }, function (response) {
         alert(response);
-        renderTasks();
+        renderTasks(); // Atualizar tabela após a edição
+    }).fail(function () {
+        alert('Erro ao editar a tarefa.');
     });
 });
 
-// Inicializar tabela
-renderTasks();
+// Excluir tarefa
+$(document).on('click', '.btn-delete', function () {
+    const taskId = $(this).data('id');
+
+    if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+        $.post('excluir_tarefa.php', { id: taskId }, function (response) {
+            alert(response); // Exibir mensagem de sucesso/erro
+            renderTasks(); // Atualizar tabela sem recarregar a página
+        }).fail(function () {
+            alert('Erro ao excluir a tarefa.');
+        });
+    }
+});
+
+// Carregar tarefas ao carregar a página
+$(document).ready(function () {
+    // Botão editar
+    $(document).on('click', '.btn-edit', function () {
+        const taskId = $(this).data('id');
+        const newName = prompt('Novo nome da tarefa:');
+        const newCost = parseFloat(prompt('Novo custo da tarefa (R$):'));
+        const newDeadline = prompt('Nova data limite:');
+
+        if (!newName || isNaN(newCost) || !newDeadline) {
+            alert('Dados inválidos!');
+            return;
+        }
+
+        $.post('edit_task.php', {
+            id: taskId,
+            name: newName,
+            cost: newCost,
+            deadline: newDeadline
+        }, function (response) {
+            alert(response);
+            renderTasks(); // Atualizar tabela após a edição
+        }).fail(function () {
+            alert('Erro ao editar a tarefa.');
+        });
+    });
+
+    // Botão ordem (up e down)
+    $(document).on('click', '.btn-order-up, .btn-order-down', function () {
+        const taskId = $(this).data('id');
+        const action = $(this).hasClass('btn-order-up') ? 'up' : 'down';
+
+        $.post('update_task_order.php', { id: taskId, action: action }, function (response) {
+            alert(response);
+            renderTasks(); // Atualizar tabela após a ordem ser alterada
+        }).fail(function () {
+            alert('Erro ao atualizar a ordem.');
+        });
+    });
+});
+
+
